@@ -35,7 +35,7 @@ export default function middleware(request) {
     status: 401,
     headers: {
       'WWW-Authenticate':
-        'Basic realm="Francis — Model Comparison", charset="UTF-8"',
+        'Basic realm="Francis Model Comparison", charset="UTF-8"',
     },
   });
 }
