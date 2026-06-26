@@ -1,14 +1,11 @@
 // HTTP Basic Auth for the whole site, enforced at the Vercel edge.
 //
-// Credentials are read from environment variables so they are NOT committed
-// to this (public) repo. Set these in the Vercel dashboard
-// (Project → Settings → Environment Variables) and redeploy:
+// Credentials are hardcoded below for a simple shared login. Environment
+// variables (BASIC_AUTH_USER / BASIC_AUTH_PASSWORD), if set in Vercel,
+// take precedence over these defaults.
 //
-//   BASIC_AUTH_USER       e.g. odlings
-//   BASIC_AUTH_PASSWORD   e.g. a strong shared password
-//
-// If the variables are not set, the middleware fails closed (denies everyone)
-// rather than leaving the site open.
+// NOTE: this repo is public, so these hardcoded credentials are visible in
+// the source. Use a private repo or environment variables if that matters.
 
 export const config = {
   // Protect every route.
@@ -16,8 +13,8 @@ export const config = {
 };
 
 export default function middleware(request) {
-  const expectedUser = process.env.BASIC_AUTH_USER;
-  const expectedPass = process.env.BASIC_AUTH_PASSWORD;
+  const expectedUser = process.env.BASIC_AUTH_USER || 'haider@nexverse.co.uk';
+  const expectedPass = process.env.BASIC_AUTH_PASSWORD || 'Password@2026!';
 
   const header = request.headers.get('authorization') || '';
   const [scheme, encoded] = header.split(' ');
